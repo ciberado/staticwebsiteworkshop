@@ -102,7 +102,7 @@ git commit -m "Added new theme"
 ```bash
 hugo new posts/hello.md
 vim posts/hello.md
-git add posts
+git add content/posts
 git commit -m "First post"
 ```
 
