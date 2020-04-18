@@ -2,8 +2,6 @@
 
 ## Tooling
 
-* [hub](https://github.com/github/hub/releases)
-* Configure it with `alias git=hub"
 * [AWS cli](https://aws.amazon.com/es/cli/)
 
 ```bash
@@ -19,8 +17,6 @@ aws --version
 aws configure --profile blog
 export AWS_PROFILE=blog
 ```
-
-* [Hugo](https://github.com/gohugoio/hugo/releases)
 
 ## Hosting configuration
 
@@ -80,44 +76,15 @@ aws s3api put-bucket-website --bucket $BLOG_NAME --website-configuration file://
 * Create the blog
 
 ```bash
-hugo new site $BLOG_NAME
-cd $BLOG_NAME
-sed -i "s/http:\/\/example.org\///i" config.toml
-
-git init
-git add -A
-git commit -m "New blog"
-
-echo public >> .gitignore
-
-git submodule add https://github.com/azmelanar/hugo-theme-pixyll themes/pixyll
-echo 'theme = "pixyll"' >> config.toml
-
-git add config.toml
-git commit -m "Added new theme"
-```
-
-* Add a post and change the `draft = true` to `draft = false`
-
-```bash
-hugo new posts/hello.md
-vim posts/hello.md
-git add content/posts
-git commit -m "First post"
-```
-
-* Test the site
-
-```bash
-hugo serve -D
+mkdir web
+wget https://pastebin.com/raw/Y1D5zYNR -O web/index.html
+wget https://pastebin.com/raw/jxEqVD29 -O web/404.html
 ```
 
 * Publish the site
 
 ```bash
-rm public -fr
-hugo
-aws s3 cp --cache-control max-age=3600 --acl public-read  --recursive public/ s3://$BLOG_NAME
+aws s3 cp --cache-control max-age=3600 --acl public-read  --recursive web/ s3://$BLOG_NAME
 ```
 
 * Open your website!
